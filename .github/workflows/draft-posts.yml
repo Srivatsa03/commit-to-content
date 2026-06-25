@@ -32,6 +32,9 @@ jobs:
           GITHUB_USERNAME: ${{ vars.GITHUB_USERNAME }}
           ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
           LOOKBACK_DAYS: ${{ vars.LOOKBACK_DAYS }}
+          MAX_DRAFTS: ${{ vars.MAX_DRAFTS }}
+          INTERESTS: ${{ vars.INTERESTS }}
+          ARXIV_CATEGORIES: ${{ vars.ARXIV_CATEGORIES }}
         run: python -m src.run
 
       - name: Commit draft queue
