@@ -47,7 +47,7 @@ def main() -> int:
         return 1
 
     username = _env("GITHUB_USERNAME", "Srivatsa03")
-    model = _env("ANTHROPIC_MODEL", "claude-sonnet-4-6")
+    model = _env("ANTHROPIC_MODEL", "claude-opus-4-8")
     lookback = int(_env("LOOKBACK_DAYS", "14"))
     gh_token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPOSITORY")  # OWNER/REPO, only in Actions

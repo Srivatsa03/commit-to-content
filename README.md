@@ -36,7 +36,7 @@ Auto-posting is a liability: off-tone posts go out under your name, and aggressi
    - *(`GITHUB_TOKEN` is provided automatically by Actions; nothing to add.)*
 3. Optional repository **variables** (Settings → Variables) to tune behavior:
    - `GITHUB_USERNAME` (default: `Srivatsa03`)
-   - `ANTHROPIC_MODEL` (default: `claude-sonnet-4-6`)
+   - `ANTHROPIC_MODEL` (default: `claude-opus-4-8`)
    - `LOOKBACK_DAYS` (default: `14`)
 4. Enable Actions, then run it: **Actions → draft-posts → Run workflow**. Check the new Issue.
 
