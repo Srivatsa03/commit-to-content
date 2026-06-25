@@ -1,0 +1,47 @@
+name: draft-posts
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every Monday at 09:00 UTC
+    - cron: "0 9 * * 1"
+
+permissions:
+  contents: write   # commit the draft queue back to the repo
+  issues: write     # open the review issue
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Draft posts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ vars.GITHUB_USERNAME }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          LOOKBACK_DAYS: ${{ vars.LOOKBACK_DAYS }}
+        run: python -m src.run
+
+      - name: Commit draft queue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add drafts/
+          if git diff --staged --quiet; then
+            echo "No new drafts to commit."
+          else
+            git commit -m "chore: add LinkedIn drafts ($(date -u +%Y-%m-%d))"
+            git push
+          fi
