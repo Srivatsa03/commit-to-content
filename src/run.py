@@ -4,7 +4,7 @@ Env vars (see .env.example):
   ANTHROPIC_API_KEY   required
   GITHUB_TOKEN        required (auto-provided in Actions)
   GITHUB_USERNAME     default: Srivatsa03
-  ANTHROPIC_MODEL     default: claude-sonnet-4-6
+  ANTHROPIC_MODEL     default: claude-opus-4-8
   LOOKBACK_DAYS       default: 14
   GITHUB_REPOSITORY   set automatically in Actions (OWNER/REPO); enables Issue creation
 """
