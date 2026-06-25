@@ -25,6 +25,12 @@ from .github_issue import create_issue
 DRAFTS_DIR = pathlib.Path(__file__).resolve().parent.parent / "drafts"
 
 
+def _env(name: str, default: str) -> str:
+    """os.environ.get, but treat an empty string (unset Actions variable) as the default."""
+    value = os.environ.get(name)
+    return value if value else default
+
+
 def _slug(text: str) -> str:
     text = re.sub(r"[^a-zA-Z0-9]+", "-", text.lower()).strip("-")
     return text[:50] or "draft"
@@ -40,9 +46,9 @@ def main() -> int:
         print("ANTHROPIC_API_KEY is not set. Add it as a repository secret.")
         return 1
 
-    username = os.environ.get("GITHUB_USERNAME", "Srivatsa03")
-    model = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-6")
-    lookback = int(os.environ.get("LOOKBACK_DAYS", "14"))
+    username = _env("GITHUB_USERNAME", "Srivatsa03")
+    model = _env("ANTHROPIC_MODEL", "claude-sonnet-4-6")
+    lookback = int(_env("LOOKBACK_DAYS", "14"))
     gh_token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPOSITORY")  # OWNER/REPO, only in Actions
 
